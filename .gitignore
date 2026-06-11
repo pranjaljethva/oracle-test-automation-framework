@@ -1,0 +1,77 @@
+# Virtual Environment
+venv/
+.venv/
+env/
+ENV/
+.virtualenv
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Pytest & pytest-bdd
+.pytest_cache/
+.pytest_tmp/
+.coverage
+htmlcov/
+
+# Playwright
+test-results/
+playwright-report/
+.auth/
+
+# Reports & Test Results
+reports/
+allurereport/
+*.html
+bdd_report.html
+report.html
+
+# Allure
+allure-results/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+*.iml
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment variables & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Temporary files
+*.tmp
+*.bak
+.cache/
+tmp/
+
+# Project specific
+.cucumber-data.json
+playwright-downloads/
+videos/
+screenshots/
+artifacts/

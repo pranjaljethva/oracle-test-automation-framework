@@ -1,0 +1,20 @@
+project_name: 'Oracle Cloud HCM'
+environment: 'qa'
+# dev / qa / staging / live
+qa:
+  base_url: https://iabfbv-test.fa.ocs.oraclecloud.com/fscmUI/faces/FuseWelcome
+  
+  valid_user: HCM_IMP
+  valid_password: mightKnife364
+
+  invalid_user: wrong_username
+  invalid_password: wrong_password
+staging:
+  base_url: https://iabfbv-stg.fa.ocs.oraclecloud.com/fscmUI/faces/FuseWelcome
+  
+  valid_user: HCM_IMP_stage
+  valid_password: mightKnife364_stage
+
+  invalid_user: wrong_username
+  invalid_password: wrong_password
+
