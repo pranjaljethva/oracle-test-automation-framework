@@ -31,7 +31,8 @@ jobs:
 
       - name: Run Test Suite
         run: |
-          pytest .\steps\ -k "web_ui" -v -s --alluredir=reports/allurereport
+          pytest .\steps\ -k "web_ui" -v -s --alluredir=.\reports\allurereport
+          
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v4
