@@ -1,6 +1,24 @@
 project_name: 'Oracle Cloud HCM'
+##### Other project names ######
+# Oracle Cloud HCM
+# Mobile app name
+
 environment: 'qa'
-# dev / qa / staging / live
+# Available options: dev / qa / staging / live
+
+app_type: 'mobile'
+# Available options: mobile / web
+
+mobile_app_name: 'credit_sights'
+# Available options: credit_sights, ismart_society
+
+device: "samsung_A53"
+# Available options: samsung_A53
+
+default_implicit_wait: 10
+default_explicit_wait: 10
+
+
 qa:
   base_url: https://iabfbv-test.fa.ocs.oraclecloud.com/fscmUI/faces/FuseWelcome
   
@@ -9,6 +27,7 @@ qa:
 
   invalid_user: wrong_username
   invalid_password: wrong_password
+
 staging:
   base_url: https://iabfbv-stg.fa.ocs.oraclecloud.com/fscmUI/faces/FuseWelcome
   
@@ -18,3 +37,24 @@ staging:
   invalid_user: wrong_username
   invalid_password: wrong_password
 
+devices:
+  samsung_A53:
+    platformName: 'Android'
+    automationName: 'UiAutomator2'
+    deviceName: 'adb-RZCTB15M0VF-RC2ens._adb-tls-connect._tcp'
+
+mobile_app_capabilities:
+  credit_sights:
+    appPackage: 'com.creditsights.reader.release'
+    appium:fastReset: 'true'
+    appium:noReset: 'false'
+
+  book_my_show:
+    appPackage: 'com.bt.bms'
+
+  ismart_society:
+    appPackage: 'com.technobliss.ismartsociety'
+
+credit_sights:
+  cr_email: 'testcsng@creditsights.com'
+  cr_password: 'Park4701'

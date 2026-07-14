@@ -3,7 +3,10 @@ pytest
 requests
 playwright
 pytest-playwright
-playwright
 PyYAML
 pytest-html
 pytest_bdd_report
+allure-pytest-bdd
+pytest-check
+appium-python-client
+selenium
