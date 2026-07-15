@@ -16,7 +16,7 @@ env:
 jobs:
   automation-tests:
     name: Run Appium Tests on Android Emulator
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     # Pull the code from your repository into the runner
