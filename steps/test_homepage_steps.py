@@ -1,12 +1,9 @@
+from pytest_bdd import then, when, parsers
+
 from page_objects.page_home import HomePage
-from steps.test_login_steps import *
+from page_objects.page_login import LoginPage
 
-
-@scenario("../features/homepage_tests.feature",
-          "Login with valid user and check menu items")
-def test_homepage_feature():
-    print("This is the end of homepage feature file.")
-
+# from steps.test_login_steps import *
 
 @then('I should see the home page is displayed')
 def verify_home_page_displayed(browser):

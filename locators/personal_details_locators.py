@@ -16,7 +16,7 @@ COMBOBOX_ITEM = "//ul[contains(@aria-labelledby, 'person-dmg-info-leg-edit')]//s
 COMBOBOX_ITEM_NEW = "//li[contains(@class, 'oj-listview-focused-element')]//span[text()= '{}']"
 COMBOBOX_SELECTOR = "oj-select-single[id*='{}']"
 
-SAVE_BUTTON = "//oj-button[contains(@id,'person-dmg-info')]//span[text()='Save']"
+SAVE_BUTTON = "//span[text()='Save']/ancestor::oj-button[1]"
 SHOW_DMG_LINK = "//a[text()='Show Prior Demographic Info']"
 
 UPDATED_FIELD = "//label[text()='{}']/following-sibling::div[1] | //label[text()='{}']/following-sibling::input"

@@ -1,0 +1,98 @@
+name: Mobile Test Automation Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  ANDROID_API_LEVEL: 30
+  ANDROID_TARGET: google_apis
+  ANDROID_ARCH: x86_64
+  AVD_NAME: appium_test_avd
+  APPIUM_PORT: 4723
+
+jobs:
+  automation-tests:
+    name: Run Appium Tests on Android Emulator
+    runs-on: windows-latest
+
+    steps:
+    # Pull the code from your repository into the runner
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Install Appium and drivers
+        run: |
+          npm install -g appium
+          appium driver install uiautomator2
+          appium --version
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK components
+        run: |
+          sdkmanager --install "platform-tools" "emulator"
+          sdkmanager --install "system-images;android-${{ env.ANDROID_API_LEVEL }};${{ env.ANDROID_TARGET }};${{ env.ANDROID_ARCH }}"
+
+      - name: Start Appium server
+        run: |
+          appium --port ${{ env.APPIUM_PORT }} --log appium.log --log-level info &
+          sleep 5
+          # Basic health check to confirm the server came up
+          curl --retry 5 --retry-delay 2 --retry-connrefused http://localhost:${{ env.APPIUM_PORT }}/status
+          
+
+      - name: Run tests on Android emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ env.ANDROID_API_LEVEL }}
+          target: ${{ env.ANDROID_TARGET }}
+          arch: ${{ env.ANDROID_ARCH }}
+          avd-name: ${{ env.AVD_NAME }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: |
+            adb devices
+            pytest .\steps\ -k "mobile_ui" -v -s --alluredir=.\reports\allurereport
+
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v4
+        if: always() # Ensures reports upload even if tests fail
+        with:
+          name: test-execution-reports
+          path: reports/
+
+      - name: Upload screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: failure-screenshots
+          path: reports/screenshots/
+          retention-days: 7
+          if-no-files-found: ignore

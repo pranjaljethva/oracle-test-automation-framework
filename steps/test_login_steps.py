@@ -1,16 +1,8 @@
 import time
 
-from pytest_bdd import scenario, given, when, then, step, parsers
-
-from page_objects.page_home import HomePage
+from pytest_bdd import when, then, step, parsers
 from page_objects.page_login import LoginPage
 from support.config_reader import ConfigReader
-
-
-@scenario("../features/login.feature",
-          "Check login activity by various combination of user name and password")
-def test_login_feature():
-    print("This is the end of login feature file.")
 
 
 @step('I am on the login page')

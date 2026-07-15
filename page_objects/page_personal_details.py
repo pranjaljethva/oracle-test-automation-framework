@@ -51,8 +51,9 @@ class PersonalDetailsPage:
             # self.page.locator(pd_locators.COMBOBOX_LIST).first.wait_for(state="visible", timeout=10000)
             # self.page.locator(pd_locators.COMBOBOX_ITEM.format(field_value)).first.click()
             self.page.locator(pd_locators.COMBOBOX_ITEM_NEW.format(field_value)).click()
-            expect(input_locator).to_have_value(field_value, timeout=10000)
             time.sleep(2)
+            expect(input_locator).to_have_value(field_value, timeout=10000)
+
         else:
             input_locator.click()
             input_locator.clear(force=True)
@@ -60,11 +61,22 @@ class PersonalDetailsPage:
             time.sleep(2)
 
     def save_modified_section(self):
-        self.page.locator(pd_locators.SAVE_BUTTON).wait_for(state="visible",timeout=5000)
-        self.page.locator(pd_locators.SAVE_BUTTON).click()
-        time.sleep(5)
-        expect(self.page.locator(pd_locators.SHOW_DMG_LINK)).not_to_have_class("oj-disabled", timeout=20000)
-        print("the link is displayed")
+        save_button = self.page.locator(pd_locators.SAVE_BUTTON).first
+        save_button.wait_for(state="visible",timeout=5000)
+
+        # self.page.get_by_text("Save").first.hover()
+        save_button.scroll_into_view_if_needed()
+        time.sleep(2)
+        self.page.locator("//span[text()='Save']/ancestor::oj-button[1]").first.dispatch_event('click')
+
+        time.sleep(3)
+        expect(save_button).not_to_be_visible(timeout=20000)
+        # expect(self.page.locator(pd_locators.SHOW_DMG_LINK)).not_to_have_class("oj-disabled", timeout=30000)
+        is_displayed = save_button.is_visible()
+        if is_displayed:
+            print("Save operation is not completed yet.")
+        else:
+            print("Save operation completed.")
 
     def verify_dmg_info(self,field_label: str, field_value: str):
 

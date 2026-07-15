@@ -12,8 +12,8 @@ Feature: As an HR admin user, I want to test the personal details page,
     Then  I should see the personal details for "Joseph Stephens"
     When  I modify the following Demographic info
       | info_title                        | info_value                      |
-      | Marital Status                    | Divorced                        |
-      | Place of Birth-Alternate Language | Punjabi                        |
+      | Marital Status                    | Single                        |
+      | Place of Birth-Alternate Language | Gujarati                        |
       | Highest Education Level           | Agricultural preparatory degree |
       | Ethnicity                         | South Asian                     |
     And   I save the Demographic info section

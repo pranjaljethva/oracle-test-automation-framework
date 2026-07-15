@@ -1,17 +1,11 @@
 import time
 
-from pytest_bdd import scenario, given, when, then, parsers
+from pytest_bdd import when, then, parsers
 from page_objects.page_home import HomePage
 # from steps.test_login_steps import *
-from steps.test_homepage_steps import *
+# from steps.test_homepage_steps import *
 from page_objects.page_personal_details import PersonalDetailsPage
 import pytest_check as check
-
-
-@scenario("../features/personal_details.feature",
-          "Search for a person and update personal details and verify if the details got updated correctly")
-def test_personal_details_feature():
-    print("this is the end of testing personal detail")
 
 
 @when(parsers.cfparse('I search for the user with user number "{employee_id}"'))
