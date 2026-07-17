@@ -54,7 +54,8 @@ def mbl_application():
 
     for key in app_caps.keys():
         if str(key).__eq__("app") or str(key).__eq__("appium:app"):
-            abs_path = project_path + os.sep + app_caps[key]
+
+            abs_path = project_path + os.sep + str(app_caps[key]).replace("/", os.sep).replace("\\", os.sep)
             capabilities[key] = abs_path
         else:
             capabilities[key] = app_caps.get(key)
