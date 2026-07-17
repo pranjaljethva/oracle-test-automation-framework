@@ -76,7 +76,6 @@ jobs:
         run: |
           ls -l /dev/kvm
           echo "KVM should be listed above with crw-rw-rw- permissions"
-                 
 
       - name: Run tests on Android emulator
         uses: reactivecircus/android-emulator-runner@v2
