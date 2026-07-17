@@ -81,20 +81,20 @@ jobs:
             adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
             sleep 15
             adb devices
-            pytest .\steps\ -k "mobile_ui" -v -s --alluredir=.\reports\allurereport
+            pytest ./steps/ -k "mobile_ui" -v -s --alluredir=./reports/allurereport
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v4
         if: always() # Ensures reports upload even if tests fail
         with:
           name: test-execution-reports
-          path: reports/
+          path: ./reports/
 
       - name: Upload screenshots on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: failure-screenshots
-          path: reports/screenshots/
+          path: ./reports/screenshots/
           retention-days: 7
           if-no-files-found: ignore
