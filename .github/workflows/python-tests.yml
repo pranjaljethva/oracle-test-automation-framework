@@ -76,11 +76,14 @@ jobs:
           avd-name: ${{ env.AVD_NAME }}
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
+          disable-animations: false   # let YOUR script handle it, after boot check
           script: |
             adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
-            sleep 15
+            sleep 20
             adb devices
+            adb shell settings put global window_animation_scale 0
+            adb shell settings put global transition_animation_scale 0
+            adb shell settings put global animator_duration_scale 0
             pytest ./steps/ -k "mobile_ui" -v -s --alluredir=./reports/allurereport
 
       - name: Upload Test Reports
