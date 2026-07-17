@@ -12,7 +12,7 @@ app_type: 'mobile'
 mobile_app_name: 'credit_sights'
 # Available options: credit_sights, ismart_society
 
-device: "samsung_A53"
+device: "emulator"
 # Available options: samsung_A53
 
 default_implicit_wait: 10
@@ -42,6 +42,12 @@ devices:
     platformName: 'Android'
     automationName: 'UiAutomator2'
     deviceName: 'adb-RZCTB15M0VF-RC2ens._adb-tls-connect._tcp'
+
+  emulator:
+    platformName: 'Android'
+    automationName: 'UiAutomator2'
+    deviceName: 'emulator-5554'
+
 
 mobile_app_capabilities:
   credit_sights:
