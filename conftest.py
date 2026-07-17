@@ -53,7 +53,11 @@ def mbl_application():
         capabilities[key] = device_caps.get(key)
 
     for key in app_caps.keys():
-        capabilities[key] = app_caps.get(key)
+        if str(key).__eq__("app") or str(key).__eq__("appium:app"):
+            abs_path = project_path + os.sep + app_caps[key]
+            capabilities[key] = abs_path
+        else:
+            capabilities[key] = app_caps.get(key)
 
     options.load_capabilities(capabilities)
 

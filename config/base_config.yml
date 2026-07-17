@@ -12,7 +12,7 @@ app_type: 'mobile'
 mobile_app_name: 'credit_sights'
 # Available options: credit_sights, ismart_society
 
-device: "emulator"
+device: "samsung_A53"
 # Available options: samsung_A53
 
 default_implicit_wait: 10
@@ -41,7 +41,8 @@ devices:
   samsung_A53:
     platformName: 'Android'
     automationName: 'UiAutomator2'
-    deviceName: 'adb-RZCTB15M0VF-RC2ens._adb-tls-connect._tcp'
+#    deviceName: 'adb-RZCTB15M0VF-RC2ens._adb-tls-connect._tcp'
+    deviceName: 'RZCTB15M0VF'
 
   emulator:
     platformName: 'Android'
@@ -54,6 +55,7 @@ mobile_app_capabilities:
     appPackage: 'com.creditsights.reader.release'
     appium:fastReset: 'true'
     appium:noReset: 'false'
+    appium:app: 'files\credit_sights.apk'
 
   book_my_show:
     appPackage: 'com.bt.bms'
