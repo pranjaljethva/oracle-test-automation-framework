@@ -65,7 +65,18 @@ jobs:
           sleep 5
           # Basic health check to confirm the server came up
           curl --retry 5 --retry-delay 2 --retry-connrefused http://localhost:${{ env.APPIUM_PORT }}/status
-                    
+
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Verify KVM is available
+        run: |
+          ls -l /dev/kvm
+          echo "KVM should be listed above with crw-rw-rw- permissions"
+                 
 
       - name: Run tests on Android emulator
         uses: reactivecircus/android-emulator-runner@v2
@@ -76,14 +87,14 @@ jobs:
           avd-name: ${{ env.AVD_NAME }}
           force-avd-creation: false
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false   # let YOUR script handle it, after boot check
+          disable-animations: true
           script: |
             adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
             sleep 20
             adb devices
-            adb shell settings put global window_animation_scale 0
-            adb shell settings put global transition_animation_scale 0
-            adb shell settings put global animator_duration_scale 0
+#            adb shell settings put global window_animation_scale 0
+#            adb shell settings put global transition_animation_scale 0
+#            adb shell settings put global animator_duration_scale 0
             pytest ./steps/ -k "mobile_ui" -v -s --alluredir=./reports/allurereport
 
       - name: Upload Test Reports
