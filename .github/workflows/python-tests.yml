@@ -69,6 +69,12 @@ jobs:
 
       - name: Run tests on Android emulator
         uses: reactivecircus/android-emulator-runner@v2
+
+      - name: Wait for emulator to be ready
+        run: |
+          adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'
+          sleep 15
+
         with:
           api-level: ${{ env.ANDROID_API_LEVEL }}
           target: ${{ env.ANDROID_TARGET }}
